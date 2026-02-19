@@ -1,4 +1,6 @@
 export default function EmployeeTable({ employees, onDelete }) {
+  const rows = Array.isArray(employees) ? employees : []
+
   return (
     <div className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200">
       <table className="min-w-full border-collapse">
@@ -15,7 +17,7 @@ export default function EmployeeTable({ employees, onDelete }) {
           </tr>
         </thead>
         <tbody>
-          {employees.map((emp, idx) => (
+        {rows.map((emp, idx) => (
             <tr
               key={emp.id}
               className={
