@@ -1,54 +1,52 @@
 export default function EmployeeTable({ employees, onDelete }) {
   return (
-    <table style={styles.table}>
-      <thead>
-        <tr style={styles.headerRow}>
-          {['ID', 'Name', 'Email', 'Department', 'Action'].map((h) => (
-            <th key={h} style={styles.th}>
-              {h}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {employees.map((emp) => (
-          <tr key={emp.id} style={styles.row}>
-            <td style={styles.td}>{emp.employee_id}</td>
-            <td style={styles.td}>{emp.full_name}</td>
-            <td style={styles.td}>{emp.email}</td>
-            <td style={styles.td}>{emp.department}</td>
-            <td style={styles.td}>
-              <button onClick={() => onDelete(emp.id)} style={styles.deleteBtn}>
-                Delete
-              </button>
-            </td>
+    <div className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200">
+      <table className="min-w-full border-collapse">
+        <thead className="bg-slate-950 text-white">
+          <tr>
+            {['ID', 'Name', 'Email', 'Department', 'Action'].map((h) => (
+              <th
+                key={h}
+                className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide"
+              >
+                {h}
+              </th>
+            ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {employees.map((emp, idx) => (
+            <tr
+              key={emp.id}
+              className={
+                idx % 2 === 0
+                  ? 'border-t border-slate-100 bg-white'
+                  : 'border-t border-slate-100 bg-slate-50'
+              }
+            >
+              <td className="px-4 py-3 text-sm text-slate-900">
+                {emp.employee_id}
+              </td>
+              <td className="px-4 py-3 text-sm text-slate-900">
+                {emp.full_name}
+              </td>
+              <td className="px-4 py-3 text-sm text-slate-700">{emp.email}</td>
+              <td className="px-4 py-3 text-sm text-slate-700">
+                {emp.department}
+              </td>
+              <td className="px-4 py-3 text-sm">
+                <button
+                  onClick={() => onDelete(emp.id)}
+                  className="inline-flex items-center rounded-md bg-rose-500 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-rose-600"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   )
-}
-
-const styles = {
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-    background: 'white',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-  },
-  headerRow: { background: '#1a1a2e', color: 'white' },
-  th: { padding: '14px 16px', textAlign: 'left', fontSize: '13px', fontWeight: 600 },
-  row: { borderBottom: '1px solid #eee' },
-  td: { padding: '12px 16px', fontSize: '14px' },
-  deleteBtn: {
-    background: '#e94560',
-    color: 'white',
-    border: 'none',
-    padding: '6px 14px',
-    borderRadius: '4px',
-    cursor: 'pointer',
-  },
 }
 

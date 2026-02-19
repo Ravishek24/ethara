@@ -38,12 +38,28 @@ export default function EmployeesPage() {
   }
 
   if (loading) return <LoadingSpinner />
-  if (error) return <div style={{ color: 'red', padding: '32px' }}>{error}</div>
+  if (error)
+    return (
+      <div className="px-4 py-8 text-sm text-red-600 md:px-8">
+        {error}
+      </div>
+    )
 
   return (
-    <div style={{ padding: '32px', maxWidth: 1100, margin: '0 auto' }}>
-      <h2 style={{ marginTop: 0 }}>Employee Management</h2>
+    <div className="mx-auto max-w-5xl px-4 py-8 md:px-8">
+      <div className="mb-6 flex items-center justify-between gap-3">
+        <div>
+          <h2 className="text-2xl font-semibold text-slate-900">
+            Employee Management
+          </h2>
+          <p className="mt-1 text-sm text-slate-500">
+            Add, view, and remove employees from your HRMS.
+          </p>
+        </div>
+      </div>
+
       <EmployeeForm onSubmit={handleAdd} />
+
       {employees.length === 0 ? (
         <EmptyState message="No employees yet. Add one above." />
       ) : (
