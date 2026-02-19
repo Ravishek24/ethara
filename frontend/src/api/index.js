@@ -1,8 +1,10 @@
 import axios from 'axios'
 
-// Hard-code local API base to avoid env misconfig issues during dev.
-// Adjust to use VITE_API_URL again when deploying.
-const api = axios.create({ baseURL: 'http://localhost:8000/api' })
+// Prefer VITE_API_URL (for Render/Vercel), fall back to local dev API.
+const BASE_URL =
+  import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+
+const api = axios.create({ baseURL: BASE_URL })
 
 export const employeeAPI = {
   getAll: () => api.get('/employees/'),

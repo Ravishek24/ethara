@@ -149,7 +149,11 @@ REST_FRAMEWORK = {
 if os.environ.get('RENDER'):
     DEBUG = False
     ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', '')]
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
+    # Prefer DATABASE_URL if Render provides one; otherwise keep POSTGRES_* config.
+    if os.environ.get('DATABASE_URL'):
+        DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
     MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
